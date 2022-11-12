@@ -1,0 +1,43 @@
+<snippet>
+  <content><![CDATA[
+class FWKtree
+{       // Use 1 based Indexing
+public:
+        vector<int>BIT;
+        int N;
+        FWKtree(int n)
+        {
+                BIT.resize(n + 1, 0);
+                N = n + 1;
+        }
+
+        void update(int index , int val)
+        {
+                for (; index < N; index += (index & -index))
+                        BIT[index] += val;
+        }
+
+        void BUILTFULL()
+        {
+                for (int i = 1; i < N; i++)
+                        update(i, a[i - 1]);
+        }
+
+        // 1 based indexing so if you want a L-R sum then use sum(R) - sum(L) not (L-1)
+        int sum(int upToI)
+        {
+                int ans = 0;
+                for (; upToI > 0; upToI -= (upToI & -upToI))
+                        ans += BIT[upToI];
+                return ans;
+        }
+
+};
+
+
+]]></content>
+  <tabTrigger>fenwikTree</tabTrigger>
+  <description>The fenweek Tree class</description>
+  <!-- Optional: Set a scope to limit where the snippet will trigger -->
+  <scope >source.c++</scope >
+</snippet>

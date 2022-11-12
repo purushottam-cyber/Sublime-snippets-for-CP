@@ -1,0 +1,39 @@
+<snippet>
+	<content><![CDATA[
+
+class dsu {
+ public:
+  vector<int> p;
+  int n;
+  vector<int> sz;
+ 
+  dsu(int _n) : n(_n) {
+    p.resize(n+1);
+    iota(p.begin(), p.end(), 0);
+    sz.assign(n+1, 1);
+    sz[0] = 0;
+  }
+ 
+  inline int get(int x) {
+    return (x == p[x] ? x : (p[x] = get(p[x])));
+  }
+ 
+  inline bool unite(int x, int y) {
+    x = get(x);
+    y = get(y);
+    if (x != y) {
+      p[x] = y;
+      sz[y] += sz[x];
+      sz[x] = 0;
+      return true;
+    }
+    return false;
+  }
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>DSU</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

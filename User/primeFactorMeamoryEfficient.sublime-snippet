@@ -1,0 +1,27 @@
+<snippet>
+  <content><![CDATA[
+vector<int>prif;
+void primeFactors(int n) 
+{ 
+  prif.clear();
+  
+  for (int i = 2; i*i <= (n); i++) 
+  { 
+    
+    while (n % i == 0) 
+    { 
+      prif.push_back(i);
+      n = n/i; 
+    } 
+  } 
+
+  if(n>1)
+  prif.push_back(n);
+
+} 
+]]></content>
+  <tabTrigger>primefactorMEAMORYEFFICIENT</tabTrigger>
+  <description>without using sieve</description>
+  <!-- Optional: Set a scope to limit where the snippet will trigger -->
+  <scope >source.c++</scope >
+</snippet>

@@ -1,0 +1,16 @@
+<snippet>
+	<content><![CDATA[
+import java.io.*;
+import java.util.*;
+
+public class ${TM_FILENAME/(\.\w+)//g} {
+	public static void main(String[] args) {
+		
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>initFile</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.java</scope>
+</snippet>

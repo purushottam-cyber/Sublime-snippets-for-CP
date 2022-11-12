@@ -1,0 +1,27 @@
+<snippet>
+	<content><![CDATA[
+
+vector<int>PRIME;
+void seive()  // will generate upto 99991 if you add one more 0 in middle will generate upto 997309
+{
+        bool arr[100001] = {false};
+	    PRIME.clear();
+	  for(int i=2;i<100001;i++)
+	  {
+	    if(arr[i]==false)
+	    {
+	        PRIME.push_back(i);
+	      for(int j=i*i;j<100001;j+=i)
+	       arr[j]=true;
+	    }
+	       
+      }
+}
+
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>primeGenerator</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

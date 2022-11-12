@@ -1,0 +1,23 @@
+<snippet>
+	<content><![CDATA[
+import java.io.*;
+import java.util.*;
+
+public class ${TM_FILENAME/(\.\w+)//g} {
+	public static void main(String[] args) {
+		try {
+			System.setIn(new FileInputStream("input.txt"));
+			System.setOut(new PrintStream(new FileOutputStream("output.txt")));
+		} catch (Exception e) {
+			System.err.println("Error");
+		}
+		
+		System.out.println("goodLuck");
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>JAVAIO</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.java</scope>
+</snippet>

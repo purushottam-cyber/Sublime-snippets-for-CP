@@ -1,0 +1,74 @@
+<snippet>
+	<content><![CDATA[
+
+/*        *************   SEGMENT TREE BUILT AND QUERY FOR RAGEMAX   **************         */
+
+
+/****   Tutoriaal in case of doubt :-  https://youtu.be/-dUiRtJ8ot0  ****/
+
+// we made it global because we dont want to carry them in the function and thus
+// making makin the function signature not messy
+int a[100005], seg[4 * 100005];
+
+
+void bulilSegtree(int index , int low , int high)
+{
+	if (low == high)
+	{
+		seg[index] = a[low]; // real gane is played here, here actually you decide how you want to
+		// build the segement tree (like for that of even or odd) and rest is just calsculation according
+		// to your need (min , max , sum , count)
+		return;
+	}
+
+	int mid = (low + high) / 2;
+	bulilSegtree(2 * index + 1, low , mid); // left child it will the seg rray at its respextive index
+	bulilSegtree(2 * index + 2, mid + 1, high); // right child it will the seg rray at its respextive index
+
+	// A little-Bit backtracking here also to fill the parent
+	seg[index] = max(seg[2 * index + 1], seg[2 * index + 2]); // what kind of seg tree want to build decided,
+	// here we want maximum in a range queery to be solved;
+}
+
+int query(int index , int low , int high , int &l , int &r)
+{
+	if (low >= l && high <= r) // curr seg lie indside the qury range and thus will contribute
+		return seg[index];
+
+	if (l > high || r < low)
+		return INT_MIN; // bcz we know it will not contribute and also we are interested in maxm
+
+	int mid = (low + high) / 2;
+
+	int left = query(index * 2 + 1, low, mid, l, r);
+	int right = query(index * 2 + 2, mid + 1, high, l, r);
+
+	return max(left, right);
+}
+
+void pointUpdate(int segindex , int low , int high , int &qindex , int &val)  // that is to update an index
+{
+	if (low == high) // actually this will be the qindex
+	{
+		seg[segindex] = val;
+	} else
+	{
+		int mid = (low + high) / 2;
+		if (qindex <= mid && qindex >= low)
+			pointUpdate(2 * segindex + 1, low, mid, qindex, val);
+		else
+			pointUpdate(2 * segindex + 2, mid + 1, high, qindex, val);
+
+		seg[segindex] = max(seg[2 * segindex + 1] , seg[2 * segindex + 2]);
+	}
+}
+
+
+/*        *************   END OF SEGMENT TREE BUILT AND QUERY FOR RAGEMAX   **************         */
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segment tree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

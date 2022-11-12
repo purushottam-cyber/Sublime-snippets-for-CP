@@ -1,0 +1,19 @@
+[
+	{ "keys": ["ctrl+q"], "command": "cancel_build" },
+
+	// for terminus key binding
+	{ "keys": ["ctrl+`"], "command": "toggle_terminus_panel",
+	"args": {
+		"config_name":"Default",
+		"cwd":"${file_path:${folder}}"
+		}
+	},
+	{ 
+    "keys": ["ctrl+w"], "command": "terminus_close", "context": [{ "key": "terminus_view"}]
+   },
+    { 
+        "keys": ["ctrl+t"], "command": "terminus_open", "args": {
+            "cwd": "${file_path:${folder}}"
+        }
+    },
+]

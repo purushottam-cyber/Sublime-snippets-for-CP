@@ -1,0 +1,50 @@
+<snippet>
+	<content><![CDATA[
+
+/********************************   TRIE  *************************************************/ 
+struct trie
+{
+	unordered_map<char, trie*>child;
+	bool isend;
+
+	trie()
+	{
+		isend = false;
+	}
+} *root = new trie();
+
+void insert(string str)
+{
+	trie* curr = root;
+
+	for (auto ch : str)
+	{
+		if (!curr->child.count(ch))
+			curr->child[ch] = new trie();
+		curr = curr->child[ch];
+	}
+
+	curr->isend = true;
+}
+
+bool search(string str)
+{
+	trie *curr = root;
+
+	for (auto ch : str)
+	{
+		if (!curr->child.count(ch))
+			return false;
+		curr = curr->child[ch];
+	}
+
+	return curr->isend;
+}
+
+/********************************  END-OF TRIE  *************************************************/
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>Trie</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

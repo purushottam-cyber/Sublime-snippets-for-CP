@@ -1,0 +1,101 @@
+<snippet>
+	<content><![CDATA[
+/*        *************   SEGMENT TREE BUILT with Lazy Propagation   **************         */
+
+
+/****   Tutoriaal in case of doubt :-  https://youtu.be/wQSnKUs93DU  ****/
+
+// we made it global because we dont want to carry them in the function and thus
+// making makin the function signature not messy
+int a[100005], seg[4 * 100005]  , lazy[4 * 100005];
+
+
+void bulilSegtree(int index , int low , int high)
+{
+	if (low == high)
+	{
+		seg[index] = a[low]; // real gane is played here, here actually you decide how you want to
+		// build the segement tree (like for that of even or odd) and rest is just calsculation according
+		// to your need (min , max , sum , count)
+		return;
+	}
+
+	int mid = (low + high) / 2;
+	bulilSegtree(2 * index + 1, low , mid); // left child it will the seg rray at its respextive index
+	bulilSegtree(2 * index + 2, mid + 1, high); // right child it will the seg rray at its respextive index
+
+	// A little-Bit backtracking here also to fill the parent
+	seg[index] = max(seg[2 * index + 1], seg[2 * index + 2]); // what kind of seg tree want to build decided,
+	// here we want maximum in a range queery to be solved;
+}
+
+int query(int index , int low , int high , int &l , int &r)
+{
+
+	if (lazy[index] != 0)
+	{
+		int dx = lazy[index]; // the pending update
+		lazy[index] = 0;
+		seg[index] += dx * (high - low + 1);
+
+		if (low != high)
+			lazy[2 * index + 1] += dx  , lazy[2 * index + 2] += dx; // propagating the updtes to childs
+	}
+
+
+	if (l > high || r < low)
+		return 0; // bcz we know it will not contribute and also we are interested in maxm
+
+	if (low >= l && high <= r) // curr seg lie indside the qury range and thus will contribute
+		return seg[index];
+
+	int mid = (low + high) / 2;
+
+	int left = query(index * 2 + 1, low, mid, l, r);
+	int right = query(index * 2 + 2, mid + 1, high, l, r);
+
+	return (left + right);
+}
+
+void rangeUpdate(int index , int low , int high , int &l , int &r, int &val) // that is to update an index
+{
+	if (lazy[index] != 0)
+	{
+		int dx = lazy[index]; // the pending update
+		lazy[index] = 0;
+		seg[index] += dx * (high - low + 1);
+
+		if (low != high)
+			lazy[2 * index + 1] += dx  , lazy[2 * index + 2] += dx; // propagating the updtes to childs
+	}
+
+	if (l > high || r < low)
+		return ;
+
+	if (low >= l && high <= r)
+	{
+		int dx = (high - low + 1) * val;
+		seg[index] += dx; // increament the current node which completely lies inside it
+
+		if (low != high)
+			lazy[2 * index + 1] += val , lazy[2 * index + 2] += val;
+		return;
+	}
+
+	int mid = (low + high) / 2;
+
+	rangeUpdate(2 * index + 1, low , mid , l , r , val);
+	rangeUpdate(2 * index + 2 , mid + 1 , high , l , r , val);
+
+	seg[index] = seg[2 * index + 1] + seg[2 * index + 2];
+}
+
+
+/*        *************   END OF SEGMENT TREE lazyPropagation  **************         */
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>lazyPropagation</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

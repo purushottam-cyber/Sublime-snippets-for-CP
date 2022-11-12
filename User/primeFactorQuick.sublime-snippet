@@ -1,0 +1,46 @@
+<snippet>
+  <content><![CDATA[
+
+#define MAXN 1000007 
+
+int smallestPrimeFact[MAXN]; 
+
+// Time Complexity : O(nloglogn) 
+void PrimeFactsieve() 
+{ 
+  smallestPrimeFact[1] = 1; 
+  for (int i=2; i<MAXN; i++) 
+    smallestPrimeFact[i] = i; 
+
+  for (int i=4; i<MAXN; i+=2) 
+    smallestPrimeFact[i] = 2; 
+
+  for (int i=3; i*i<MAXN; i++) 
+  { 
+    
+    if (smallestPrimeFact[i] == i) 
+    { 
+      for (int j=i*i; j<MAXN; j+=i) 
+        if (smallestPrimeFact[j]==j) 
+          smallestPrimeFact[j] = i; 
+    } 
+  } 
+} 
+
+vector<int> getFactorization(int x) 
+{ 
+  vector<int> ret; 
+  while (x != 1) 
+  { 
+    ret.push_back(smallestPrimeFact[x]); 
+    x = x / smallestPrimeFact[x]; 
+  } 
+  return ret; 
+} 
+
+]]></content>
+  <tabTrigger>primefactorQUICK</tabTrigger>
+  <description>using sieve</description>
+  <!-- Optional: Set a scope to limit where the snippet will trigger -->
+  <scope >source.c++</scope >
+</snippet>

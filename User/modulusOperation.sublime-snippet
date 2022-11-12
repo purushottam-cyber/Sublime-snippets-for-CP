@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+
+
+const int MOD = 1e9 + 7;
+
+int mod(int x)
+{
+    return ((x%MOD + MOD)%MOD);
+}
+
+int modmultiply(int a , int b)
+{
+    return mod(mod(a)*mod(b));
+}
+
+int modadd(int a , int b)
+{
+    return mod(mod(a)+mod(b));
+}
+
+
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>modulusOperations</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.c++</scope>
+</snippet>
